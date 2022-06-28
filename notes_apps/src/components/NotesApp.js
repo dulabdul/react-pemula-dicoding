@@ -1,10 +1,10 @@
-import React from "react";
-import AddNotes from "./AddNotes";
-import Search from "./SearchNotes";
-import NotesShowList from "./NotesShowList";
-import NotesHiddenList from "./NotesHiddenList";
-import { getInitialData } from "../utils";
-import Swal from "sweetalert2";
+import React from 'react';
+import Swal from 'sweetalert2';
+import AddNotes from './AddNotes';
+import Search from './SearchNotes';
+import NotesShowList from './NotesShowList';
+import NotesHiddenList from './NotesHiddenList';
+import { getInitialData } from '../utils';
 
 class NotesApp extends React.Component {
   constructor(props) {
@@ -21,105 +21,97 @@ class NotesApp extends React.Component {
   }
 
   onDeleteHandler(id) {
-  
     Swal.fire({
-        title: "Are you sure?",
-        text: "Once deleted, you book totally removed!",
-        icon: "warning",
-        showCancelButton: true,
-        buttons: true,
-        dangerMode: true,
-        confirmButtonColor: '#3085d6',  
-      cancelButtonColor: '#d33', 
+      title: 'Are you sure?',
+      text: 'Once deleted, you book totally removed!',
+      icon: 'warning',
+      showCancelButton: true,
+      buttons: true,
+      dangerMode: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
     })
-    .then((result) => {
+      .then((result) => {
         if (result.value) {
-            Swal.fire("Poof! You notes success deleted", {
-                icon: "success",
-            });
-            const notes = this.state.notes.filter((note) => note.id !== id);
-            const searchNotes = this.state.searchNotes.filter((note) => note.id !== id);
-            this.setState({
-                notes: notes,
-                searchNotes: searchNotes,
-              });
+          Swal.fire('Poof! You notes success deleted', {
+            icon: 'success',
+          });
+          const notes = this.state.notes.filter((note) => note.id !== id);
+          const searchNotes = this.state.searchNotes.filter((note) => note.id !== id);
+          this.setState({
+            notes,
+            searchNotes,
+          });
         } else {
-            Swal.fire("Your notes file is cancel deleted!");
+          Swal.fire('Your notes file is cancel deleted!');
         }
-    });
-
+      });
   }
+
   onMoveArchiveHandler(id) {
     Swal.fire({
-      title: "Success",
-      type: "success",
-      text: "Your notes has been move.",
+      title: 'Success',
+      type: 'success',
+      text: 'Your notes has been move.',
     });
-    this.setState((prevState) => {
-      return {
-        notes: prevState.notes.map((note) => {
-          if (note.id === id) {
-            return {
-              ...note,
-              archived: !note.archived,
-            };
-          } else {
-            return note;
-          }
-        }),
-        searchNotes: prevState.searchNotes.map((note) => {
-          if (note.id === id) {
-            return {
-              ...note,
-              archived: !note.archived,
-            };
-          } else {
-            return note;
-          }
-        }),
-      };
-    });
+    this.setState((prevState) => ({
+      notes: prevState.notes.map((note) => {
+        if (note.id === id) {
+          return {
+            ...note,
+            archived: !note.archived,
+          };
+        }
+        return note;
+      }),
+      searchNotes: prevState.searchNotes.map((note) => {
+        if (note.id === id) {
+          return {
+            ...note,
+            archived: !note.archived,
+          };
+        }
+        return note;
+      }),
+    }));
   }
 
   onSearchHandler(e) {
-    this.setState((prevState) => {
-      return {
-        searchNotes: prevState.notes.filter((note) => note.title.toLowerCase().includes(e.target.value.toLowerCase())),
-      };
-    });
+    this.setState((prevState) => ({
+      searchNotes: prevState.notes.filter((note) => note.title.toLowerCase().includes(e.target.value.toLowerCase())),
+    }));
   }
 
   onAddNoteHandler({ title, body }) {
     Swal.fire({
-        title: "Success",
-        type: "success",
-        text: "Your notes success created.",
-      });
-    this.setState((prevState) => {
-      return {
-        notes: [
-          ...prevState.notes,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date().toISOString(),
-          },
-        ],
-        searchNotes: [
-          ...prevState.searchNotes,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date().toISOString(),
-          },
-        ],
-      };
+      title: 'Success',
+      type: 'success',
+      text: 'Your notes success created.',
     });
+    this.setState((prevState) => ({
+      notes: [
+        ...prevState.notes,
+        {
+          id: +new Date(),
+          title,
+          body,
+          archived: false,
+          createdAt: new Date().toISOString(),
+        },
+      ],
+      searchNotes: [
+        ...prevState.searchNotes,
+        {
+          id: +new Date(),
+          title,
+          body,
+          archived: false,
+          createdAt: new Date().toISOString(),
+        },
+      ],
+    }));
   }
+
   render() {
     return (
       <>
