@@ -1,12 +1,11 @@
-import React from "react"
+import React from "react";
 
-const DeleteButton = ({id, onDelete}) =>{
-    return (
-        <div className="contact-item__btndelete">
-            <button onClick={() => onDelete(id)}>X</button>
-            
-        </div>
-    )
-}
+const DeleteButton = ({ id, onDelete }) => {
+  return (
+    <button className="contact-item__btndelete" onClick={() => onDelete(id)}>
+      X
+    </button>
+  );
+};
 
 export default DeleteButton;

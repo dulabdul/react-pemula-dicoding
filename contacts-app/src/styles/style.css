@@ -38,13 +38,13 @@ body {
     margin-bottom: 4px;
 }
 
-.contact-item__image img {
+.contact-item img {
     border-radius: 50%;
     width: 100px;
 
 }
 
-.contact-item__btndelete button {
+.contact-item__btndelete {
     background: red;
     color: #fff;
     padding: 0.5em;
@@ -55,6 +55,29 @@ body {
     cursor: pointer;
 }
 
-.contact-item__btndelete button:hover {
+.contact-item__btndelete:hover {
+    opacity: 0.6;
+}
+
+.contact-input input {
+    width: 100%;
+    border: 1px solid black;
+    padding: 0.7em;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.contact-input button {
+    padding: .5em;
+    color: #fff;
+    font-size: 1em;
+    background-color: rgba(25, 149, 231, 0.815);
+    border: 0;
+    border-radius: 5px;
+    margin-top: .7em;
+    cursor: pointer;
+}
+
+.contact-input button:hover {
     opacity: 0.6;
 }
