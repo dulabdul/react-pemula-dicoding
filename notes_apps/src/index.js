@@ -1,11 +1,14 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/index.scss';
-import Header from './components/Header';
-import NotesApp from './components/NotesApp';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 /* eslint-disable import/no-unresolved */
 
 const root = createRoot(document.querySelector('#root'));
-const header = createRoot(document.querySelector('#header'));
-header.render(<Header />);
-root.render(<NotesApp />);
+
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

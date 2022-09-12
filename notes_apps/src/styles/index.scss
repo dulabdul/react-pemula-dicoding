@@ -1,15 +1,9 @@
-// Variable
-$primaryColor: #1a1b24;
-$secondaryColor: #282b38;
-$tersierColor: #3e4253;
-$primaryTextColor: #fff;
-$secondaryTextColor: #b5bdd6;
-// End Of Variable
 
-// Google Fonts
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap");
-// End Of Fonts
-
+// modules sass
+@use 'modules/font';
+@use 'modules/variables'as v;
+@use 'modules/mixin'as m;
+// end of modules
 // Global Styles
 * {
   margin: 0;
@@ -25,9 +19,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   font-family: "Noto Sans", sans-serif;
-  background-color: $primaryColor;
+  background-color: v.$primaryColor;
 }
 // End Of Global Styles
+
+// Header styles
 header {
   display: inline;
   .heading_jumbroton {
@@ -36,24 +32,31 @@ header {
     width: 100%;
     top: 10%;
     h1 {
-      color: $primaryTextColor;
+      color: v.$primaryColor;
       font-size: 3em;
     }
   }
   nav {
     display: flex;
-    background-color: $secondaryColor;
+    background-color: v.$secondaryColor;
     justify-content: space-between;
     padding: 0 2em;
-    height: 50px;
+    height: 60px;
     align-items: center;
     position: sticky;
     top: 0;
     .logo {
       .title-logo {
-        font-size: 1em;
-        color: $primaryTextColor;
-        i {
+        a{
+          font-size: 1em;
+        color: v.$primaryTextColor;
+        text-decoration: none;
+        &:hover{
+          color: v.$secondaryTextColor;
+        }
+        }
+        svg {
+          color: v.$primaryTextColor;
           margin-right: 0.3em;
         }
       }
@@ -63,13 +66,14 @@ header {
       display: flex;
       justify-content: space-between;
       li {
+        margin: 0 .5em;
         a {
           text-decoration: none;
-          color: $primaryTextColor;
+          color: v.$primaryTextColor;
           font-weight: bold;
           font-size: 0.9em;
           &:hover {
-            color: $secondaryTextColor;
+            color: v.$secondaryTextColor;
           }
         }
       }
@@ -121,17 +125,19 @@ header {
   transform: scale(0);
   opacity: 0;
 }
+// end of Header styles
 
+// search styles
 .notes-search {
   margin: 2em auto;
-  border: 2px solid $tersierColor;
+  border: 2px solid v.$tersierColor;
   border-radius: 5px;
   padding: 7px 5px 7px 7px;
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $tersierColor;
+  background-color: v.$tersierColor;
   input {
     border: none;
     padding: 8px;
@@ -145,125 +151,163 @@ header {
     margin-right: 0.5em;
   }
 }
+
+// end of search styles
+
+// konten styles
 .container {
-  max-width: 1000px;
+  max-width: 1140px;
   padding: 1em;
   margin: 1em auto;
-}
-
-.input-notes {
-  max-width: 600px;
-  margin: 0 auto;
-  h2 {
-    font-size: 2em;
-    color: $primaryTextColor;
-    letter-spacing: 3px;
-  }
-  .add-note__title-limit {
-    color: $secondaryTextColor;
-  }
-  .add-note__title,
-  .add-body {
-    display: block;
-    width: 100%;
-    font-weight: 700;
-    background-color: transparent;
-    outline-color: initial;
-    border: 1px solid #00cc8f;
-    outline: none;
-    padding: 0.6em;
-    margin: 0.6em 0;
-    color: $primaryTextColor;
-    border-radius: 3px;
-  }
-  .add-body {
-    min-height: 200px;
-  }
-  button {
-    display: block;
-    width: 100%;
-    font-weight: 700;
-    background-color: transparent;
-    outline-color: initial;
-    border: 1px solid #00cc8f;
-    outline: none;
-    padding: 0.6em;
-    color: $primaryTextColor;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-}
-.notes-container {
-  margin-top: 0.5em;
-  display: grid;
-  max-width: 1000px;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0 1em;
-  .notes-item {
-    display: flex;
-    margin: 0.5em;
-    overflow: hidden;
-    background-color: $secondaryColor;
-    flex-direction: column;
-    padding: 1em;
-    box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    border: 0;
-    .notes-item__head {
-      color: $primaryTextColor;
-      font-size: 1.8em;
-      font-weight: 600;
+  .detail-container{
+    margin: .5em auto;
+    max-width: 100%;
+    h2{
+      color: v.$primaryTextColor;
+      font-size: 3em;
     }
-    .notes-item__date {
-      color: $secondaryTextColor;
-      font-size: 0.8em;
-      font-weight: 300;
-      margin-top: 0.3em;
+    .detail-container__date{
+      color: v.$secondaryTextColor;
     }
-    .notes-item__content {
-      font-size: 1em;
-      font-weight: 400;
-      color: $primaryTextColor;
-      margin-top: 0.9em;
+    .detail-container__description{
+      margin-top: 2em;
+      color: v.$primaryTextColor;
     }
-    .notes-item__body {
-      margin-top: 25px;
-      flex: 1 1;
+    .notfound-container__btnback{
+      @include m.btn-back();
+      margin: 1em 0 !important;
     }
-    .notes-item__button {
+  }
+  .notes-container {
+    margin: .5em auto;
+    display: grid;
+    max-width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1em;
+    .notes-item {
       display: flex;
-      .notes-item__btndelete,
-      .notes-item__btnarchive {
-        padding: 0.6em;
-        border: 0;
-        outline-color: initial;
-        border-radius: 3px;
-        background-color: transparent;
-        color: $primaryTextColor;
-        font-weight: 500;
-        font-size: 1em;
-        margin-right: 0.5em;
-        margin-top: 1em;
-        cursor: pointer;
-        transition: 0.3s ease-out;
-      }
-      .notes-item__btndelete {
-        border: 1px solid #d9534f;
-        &:hover {
-          background-color: #d9534f;
+      margin: 0.5em;
+      overflow: hidden;
+      background-color: v.$secondaryColor;
+      flex-direction: column;
+      padding: 1em;
+      box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      border: 0;
+      .notes-item__head {
+        a{
+          color: v.$primaryTextColor;
+        font-size: 1.5em;
+        font-weight: 600;
+        text-decoration: none;
+        &:hover{
+          text-decoration: underline;
+        }
         }
       }
-      .notes-item__btnarchive {
-        border: 1px solid #00cc8f;
-        &:hover {
-          background-color: #00cc8f;
+      .notes-item__date {
+        color: v.$secondaryTextColor;
+        font-size: 0.8em;
+        font-weight: 300;
+        margin-top: 0.3em;
+      }
+      .notes-item__content {
+        font-size: 1em;
+        font-weight: 400;
+        color: v.$primaryTextColor;
+        margin-top: 0.9em;
+        a{
+          color: v.$primaryTextColor;
+          text-decoration: none;
+          &:hover{
+            color: v.$secondaryTextColor;
+            text-decoration: underline;
+          }
+        }
+      }
+      .notes-item__body {
+        margin-top: 25px;
+        flex: 1 1;
+      }
+      .notes-item__button {
+        display: flex;
+        .notes-item__btndelete{
+          svg{
+            margin-right: .2em;
+          }
+          @include m.btn-delete()
+        }
+        .notes-item__btnarchive{
+          svg{
+            margin-right: .2em;
+          }
+          @include m.btn-archived()
         }
       }
     }
   }
-}
-.notes-list_heading {
-  color: $primaryTextColor;
+  .input-notes {
+    max-width: 600px;
+    margin: 0 auto;
+    h2 {
+      font-size: 2em;
+      color: v.$primaryTextColor;
+      letter-spacing: 3px;
+    }
+    .add-note__title-limit {
+      color: v.$secondaryTextColor;
+    }
+    .add-note__title,
+    .add-body {
+      display: block;
+      width: 100%;
+      font-weight: 700;
+      background-color: transparent;
+      outline-color: initial;
+      border: 1px solid #00cc8f;
+      outline: none;
+      padding: 0.6em;
+      margin: 0.6em 0;
+      color: v.$primaryTextColor;
+      border-radius: 3px;
+    }
+    .add-body {
+      min-height: 200px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      font-weight: 700;
+      background-color: transparent;
+      outline-color: initial;
+      border: 1px solid #00cc8f;
+      outline: none;
+      padding: 0.6em;
+      color: v.$primaryTextColor;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+  .notfound-container{
+    margin: .5em auto;
+    max-width: 100%;
+    text-align: center;
+    .notfound-container__error-text{
+      h1{
+        color: #E38B29;
+        font-size: 3.5em;
+      }
+      p{
+        color: v.$primaryTextColor;
+      } 
+    }
+    .notfound-container__btnback{
+     @include m.btn-back()
+    }
+  }
+  .notes-list_heading {
+  color: v.$primaryTextColor;
   font-size: 2em;
   margin-top: 1.5em;
 }
@@ -271,6 +315,11 @@ header {
     font-size: 3em;
     color: #f0ad4e;
 }
+}
+// end of konten styles
+
+
+
 // Responsive BreakPoint
 @media screen and (max-width: 768px) {
   nav {
@@ -284,8 +333,11 @@ header {
     z-index: 99;
     display: flex !important;
   }
-  .notes-container{
-    grid-template-columns: 1fr;
+  .container{
+    .notes-container{
+      grid-template-columns: 1fr;
+    }
+
   }
   header {
     nav {
@@ -294,9 +346,9 @@ header {
         right: 0;
         top: 0;
         flex-direction: column;
-        background-color: $tersierColor;
+        background-color: v.$tersierColor;
         height: 100vh;
-        width: 100%;
+        width: 50%;
         align-items: center;
         justify-content: space-evenly;
         z-index: 2;
